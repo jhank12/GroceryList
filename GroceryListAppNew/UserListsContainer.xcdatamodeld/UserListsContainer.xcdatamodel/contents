@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22758" systemVersion="23E224" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+    <entity name="CategoryEntity" representedClassName="CategoryEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="category" attributeType="String"/>
+        <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="list" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ListEntity" inverseName="category" inverseEntity="ListEntity"/>
+        <relationship name="listItems" optional="YES" toMany="YES" deletionRule="No Action" destinationEntity="ListItemEntity" inverseName="categoryEntity" inverseEntity="ListItemEntity"/>
+    </entity>
+    <entity name="ListEntity" representedClassName="ListEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="listName" attributeType="String"/>
+        <relationship name="category" optional="YES" toMany="YES" deletionRule="No Action" destinationEntity="CategoryEntity" inverseName="list" inverseEntity="CategoryEntity"/>
+    </entity>
+    <entity name="ListItemEntity" representedClassName="ListItemEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="category" attributeType="String"/>
+        <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="isChecked" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="itemName" attributeType="String"/>
+        <attribute name="quantity" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="unit" attributeType="String"/>
+        <relationship name="categoryEntity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CategoryEntity" inverseName="listItems" inverseEntity="CategoryEntity"/>
+        <relationship name="listEntity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ListEntity"/>
+    </entity>
+    <entity name="SavedCategoryEntity" representedClassName="SavedCategoryEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="category" attributeType="String"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="savedItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SavedListItemEntity" inverseName="savedCategory" inverseEntity="SavedListItemEntity"/>
+        <relationship name="savedList" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SavedListEntity" inverseName="savedCategories" inverseEntity="SavedListEntity"/>
+    </entity>
+    <entity name="SavedListEntity" representedClassName="SavedListEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="listName" attributeType="String"/>
+        <relationship name="savedCategories" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SavedCategoryEntity" inverseName="savedList" inverseEntity="SavedCategoryEntity"/>
+    </entity>
+    <entity name="SavedListItemEntity" representedClassName="SavedListItemEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="category" attributeType="String"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="isChecked" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="itemName" attributeType="String"/>
+        <attribute name="itemNotes" optional="YES" attributeType="String"/>
+        <attribute name="quantity" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="unit" attributeType="String"/>
+        <relationship name="savedCategory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SavedCategoryEntity" inverseName="savedItems" inverseEntity="SavedCategoryEntity"/>
+    </entity>
+</model>
